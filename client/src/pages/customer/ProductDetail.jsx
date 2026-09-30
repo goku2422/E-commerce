@@ -126,7 +126,7 @@ export default function ProductDetail() {
         </div>
 
         {/* Right Column: Product Info & Purchase Actions */}
-        <div className="lg:col-span-5 space-y-8 bg-white p-8 sm:p-10 rounded-3xl border border-zinc-200/80 shadow-sm">
+        <div className="lg:col-span-5 space-y-8 bg-white p-5 sm:p-8 lg:p-10 rounded-3xl border border-zinc-200/80 shadow-sm">
           <div className="space-y-3">
             <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-zinc-400">
               <span>{product.category?.name || 'Collection'}</span>
@@ -138,7 +138,7 @@ export default function ProductDetail() {
           </div>
 
           {/* Pricing */}
-          <div className="flex items-baseline space-x-4 pb-6 border-b border-zinc-100">
+          <div className="flex flex-wrap items-baseline gap-2 sm:gap-4 pb-6 border-b border-zinc-100">
             {hasDiscount ? (
               <>
                 <span className="text-3xl font-extrabold text-zinc-900">₹{product.discountPrice.toLocaleString()}</span>

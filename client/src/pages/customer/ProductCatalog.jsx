@@ -102,9 +102,9 @@ export default function ProductCatalog() {
         </div>
 
         {/* Search & Sort Controls */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
           {/* Live Search */}
-          <div className="relative min-w-[200px]">
+          <div className="relative w-full sm:w-auto sm:min-w-[200px] flex-1">
             <input
               type="text"
               placeholder="Search items..."

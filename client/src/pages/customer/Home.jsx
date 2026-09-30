@@ -36,17 +36,17 @@ export default function Home() {
     <div className="space-y-24 pb-24 bg-[#faf9f6]">
       {/* HERO SECTION — Inspired by Reference Editorial Layout */}
       <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 animate-fade-in">
-        <div className="relative bg-[#f4f3ef] rounded-3xl p-8 sm:p-12 lg:p-16 border border-zinc-200/80 overflow-hidden shadow-sm">
+        <div className="relative bg-[#f4f3ef] rounded-3xl p-5 sm:p-8 lg:p-16 border border-zinc-200/80 overflow-hidden shadow-sm">
           {/* Subtle Accent Glow */}
           <div className="absolute -top-40 -right-40 w-96 h-96 bg-zinc-300/30 rounded-full blur-3xl pointer-events-none" />
 
           {/* Top Hero Pill */}
-          <div className="flex items-center justify-between border-b border-zinc-200/80 pb-6 mb-10 animate-fade-down">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-zinc-200/80 pb-4 sm:pb-6 mb-6 sm:mb-10 gap-2 sm:gap-4 animate-fade-down">
             <div className="inline-flex items-center space-x-2 text-xs uppercase tracking-widest font-bold text-zinc-500">
               <Sparkles className="w-3.5 h-3.5 text-zinc-900" />
               <span>Season 2026 Editorial Collection</span>
             </div>
-            <span className="hidden sm:block text-xs uppercase tracking-widest font-semibold text-zinc-400">
+            <span className="text-[10px] sm:text-xs uppercase tracking-widest font-semibold text-zinc-400">
               Limited Edition • Single Vendor
             </span>
           </div>
@@ -77,11 +77,11 @@ export default function Home() {
                 </div>
               )}
 
-              <div className="flex flex-wrap items-center gap-4 pt-4 animate-fade-up stagger-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-4 animate-fade-up stagger-4">
                 {activeHeroProduct && (
                   <button
                     onClick={() => addToCart(activeHeroProduct._id, 1)}
-                    className="px-8 py-4 bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs uppercase tracking-widest rounded-full shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 flex items-center space-x-3"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs uppercase tracking-widest rounded-full shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 flex items-center justify-center space-x-3"
                   >
                     <span>Add to Bag</span>
                     <ShoppingBag className="w-4 h-4" />
@@ -90,7 +90,7 @@ export default function Home() {
 
                 <Link
                   to="/products"
-                  className="px-8 py-4 bg-white hover:bg-zinc-100 text-zinc-900 font-bold text-xs uppercase tracking-widest rounded-full border border-zinc-300 transition-all duration-200 hover:scale-105 flex items-center space-x-2"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white hover:bg-zinc-100 text-zinc-900 font-bold text-xs uppercase tracking-widest rounded-full border border-zinc-300 transition-all duration-200 hover:scale-105 flex items-center justify-center space-x-2"
                 >
                   <span>View Catalog</span>
                   <ArrowRight className="w-4 h-4" />

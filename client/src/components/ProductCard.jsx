@@ -94,10 +94,10 @@ export default function ProductCard({ product }) {
       </div>
 
       {/* Bottom Pricing & Action */}
-      <div className="pt-4 mt-2 border-t border-zinc-100 flex items-center justify-between">
+      <div className="pt-4 mt-2 border-t border-zinc-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
         <div>
           {hasDiscount ? (
-            <div className="flex items-baseline space-x-2 font-mono">
+            <div className="flex flex-wrap items-baseline gap-1.5 font-mono">
               <span className="text-base font-extrabold text-zinc-900">₹{product.discountPrice.toLocaleString()}</span>
               <span className="text-xs text-zinc-400 line-through">₹{product.price.toLocaleString()}</span>
             </div>
@@ -109,7 +109,7 @@ export default function ProductCard({ product }) {
         <button
           onClick={handleAddToCart}
           disabled={isOutOfStock || adding}
-          className={`px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider flex items-center space-x-1.5 transition-all duration-200 active:scale-95 ${
+          className={`w-full sm:w-auto px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-1.5 transition-all duration-200 active:scale-95 ${
             addedSuccess
               ? 'bg-emerald-600 text-white shadow-md'
               : isOutOfStock

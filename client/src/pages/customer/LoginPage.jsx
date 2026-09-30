@@ -52,7 +52,7 @@ export default function LoginPage() {
         </div>
 
         {/* Right Auth Form */}
-        <div className="p-8 sm:p-10 flex flex-col justify-center space-y-6">
+        <div className="p-5 sm:p-8 lg:p-10 flex flex-col justify-center space-y-6">
           <div className="space-y-1">
             <h2 className="text-2xl sm:text-3xl font-display font-light text-neutral-900">Welcome Back</h2>
             <p className="text-xs text-neutral-400 font-light">Enter your credentials to access your account</p>

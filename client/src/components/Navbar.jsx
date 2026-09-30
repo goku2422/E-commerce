@@ -169,16 +169,16 @@ export default function Navbar() {
                   )}
                 </div>
               ) : (
-                <div className="flex items-center space-x-1 sm:space-x-2">
+                <div className="hidden sm:flex items-center space-x-1 sm:space-x-2">
                   <Link
                     to="/login"
-                    className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-zinc-700 hover:text-zinc-950 px-2 sm:px-3 py-1.5 sm:py-2 transition-colors"
+                    className="text-xs font-semibold uppercase tracking-wider text-zinc-700 hover:text-zinc-950 px-3 py-2 transition-colors"
                   >
                     Log In
                   </Link>
                   <Link
                     to="/register"
-                    className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white bg-zinc-900 hover:bg-zinc-800 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-sm transition-all hover:scale-105"
+                    className="text-xs font-bold uppercase tracking-wider text-white bg-zinc-900 hover:bg-zinc-800 px-4 py-2 rounded-full shadow-sm transition-all hover:scale-105"
                   >
                     Register
                   </Link>
