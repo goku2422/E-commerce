@@ -61,10 +61,10 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1 || (origin && origin.endsWith('.vercel.app'))) {
         callback(null, true);
       } else {
-        callback(new Error('CORS Policy: Request from origin ' + origin + ' blocked'));
+        callback(null, true);
       }
     },
     credentials: true,
@@ -115,9 +115,13 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`==================================================`);
-  console.log(`ApexCart Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-  console.log(`Healthcheck: http://localhost:${PORT}/api/health`);
-  console.log(`==================================================`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`==================================================`);
+    console.log(`ApexCart Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+    console.log(`Healthcheck: http://localhost:${PORT}/api/health`);
+    console.log(`==================================================`);
+  });
+}
+
+module.exports = app;
