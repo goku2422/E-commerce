@@ -54,9 +54,9 @@ function CustomerLayout() {
 function AdminLayout() {
   const location = useLocation();
   return (
-    <div className="flex min-h-screen bg-slate-950">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-slate-950">
       <AdminSidebar />
-      <main key={location.pathname} className="flex-1 overflow-x-hidden animate-page-enter">
+      <main key={location.pathname} className="flex-1 overflow-x-hidden pt-16 lg:pt-0 animate-page-enter">
         <Outlet />
       </main>
     </div>

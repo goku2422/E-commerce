@@ -46,7 +46,7 @@ export default function Modal({ isOpen, onClose, title, children }) {
           </div>
 
           {/* Modal Body */}
-          <div className="p-6 overflow-y-auto flex-1 text-slate-200">{children}</div>
+          <div className="p-4 sm:p-6 overflow-y-auto flex-1 text-slate-200">{children}</div>
         </div>
       </div>
     </>

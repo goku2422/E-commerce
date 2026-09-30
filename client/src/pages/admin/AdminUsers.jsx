@@ -33,7 +33,7 @@ export default function AdminUsers() {
   };
 
   return (
-    <div className="p-8 space-y-6 bg-slate-950 min-h-screen text-slate-100">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 bg-slate-950 min-h-screen text-slate-100">
       <div>
         <h1 className="text-3xl font-black text-white">Registered Customers</h1>
         <p className="text-sm text-slate-400 mt-1">Manage customer accounts and access controls</p>

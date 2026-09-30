@@ -85,7 +85,7 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="p-8 space-y-8 bg-slate-950 min-h-screen text-slate-100 animate-fade-in">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-8 bg-slate-950 min-h-screen text-slate-100 animate-fade-in">
       <div className="animate-fade-down">
         <h1 className="text-3xl font-black tracking-tight text-white font-display">Platform Control Dashboard</h1>
         <p className="text-xs font-mono uppercase tracking-widest text-slate-400 mt-1">Real-time statistics, revenue metrics, and inventory alerts</p>

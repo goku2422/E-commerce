@@ -169,16 +169,16 @@ export default function Navbar() {
                   )}
                 </div>
               ) : (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1 sm:space-x-2">
                   <Link
                     to="/login"
-                    className="text-xs font-semibold uppercase tracking-wider text-zinc-700 hover:text-zinc-950 px-3 py-2 transition-colors"
+                    className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-zinc-700 hover:text-zinc-950 px-2 sm:px-3 py-1.5 sm:py-2 transition-colors"
                   >
                     Log In
                   </Link>
                   <Link
                     to="/register"
-                    className="text-xs font-bold uppercase tracking-wider text-white bg-zinc-900 hover:bg-zinc-800 px-4 py-2 rounded-full shadow-sm transition-all hover:scale-105"
+                    className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white bg-zinc-900 hover:bg-zinc-800 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-sm transition-all hover:scale-105"
                   >
                     Register
                   </Link>
@@ -204,14 +204,41 @@ export default function Navbar() {
               <Link to="/products" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-zinc-100">Shop Catalog</Link>
               <Link to="/products?category=electronics" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-zinc-100">Electronics</Link>
               <Link to="/products?category=fashion-apparel" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-zinc-100">Fashion</Link>
-              {isAuthenticated && (
+              <Link to="/products?category=home-living" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-zinc-100">Home & Living</Link>
+              {isAuthenticated ? (
                 <>
                   <Link to="/my-orders" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-zinc-100">My Orders</Link>
-                  <Link to="/profile" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-zinc-100">Profile</Link>
+                  <Link to="/profile" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-zinc-100">Profile & Addresses</Link>
                   {isAdmin && (
-                    <Link to="/admin" onClick={() => setMobileMenuOpen(false)} className="py-2 text-indigo-600">Admin Dashboard</Link>
+                    <Link to="/admin" onClick={() => setMobileMenuOpen(false)} className="py-2 text-indigo-600 border-b border-zinc-100">Admin Dashboard</Link>
                   )}
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      logout();
+                    }}
+                    className="py-2 text-left text-red-600 border-b border-zinc-100"
+                  >
+                    Sign Out
+                  </button>
                 </>
+              ) : (
+                <div className="pt-2 flex flex-col space-y-2">
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full text-center py-2.5 bg-zinc-100 text-zinc-900 rounded-xl font-bold"
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    to="/register"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full text-center py-2.5 bg-zinc-900 text-white rounded-xl font-bold"
+                  >
+                    Create Account
+                  </Link>
+                </div>
               )}
             </div>
           </div>

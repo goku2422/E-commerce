@@ -51,7 +51,7 @@ export default function AdminDeliveryConfig() {
   }
 
   return (
-    <div className="p-8 space-y-6 bg-slate-950 min-h-screen text-slate-100">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 bg-slate-950 min-h-screen text-slate-100">
       <div>
         <h1 className="text-3xl font-black text-white">Delivery Charges Management</h1>
         <p className="text-sm text-slate-400 mt-1">Configure threshold for free shipping, standard shipping rates, and delivery estimates</p>
