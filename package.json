@@ -1,0 +1,29 @@
+{
+  "name": "apex-cart-ecommerce",
+  "version": "1.0.0",
+  "description": "Production-grade Single Vendor E-Commerce Platform built with MERN stack",
+  "main": "server/server.js",
+  "scripts": {
+    "setup": "cd server && npm install && cd ../client && npm install",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "seed": "cd server && npm run seed"
+  },
+  "keywords": [
+    "mern",
+    "ecommerce",
+    "express",
+    "react",
+    "mongodb",
+    "razorpay",
+    "node"
+  ],
+  "author": "Antigravity Senior Architect",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^10.5.6",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "info": {
+    "_postman_id": "apexcart-mern-collection-2026",
+    "name": "ApexCart Single Vendor E-Commerce API",
+    "description": "Complete REST API Postman Collection for ApexCart MERN Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "customerToken", "value": "" },
+    { "key": "adminToken", "value": "" },
+    { "key": "productId", "value": "" },
+    { "key": "orderId", "value": "" },
+    { "key": "addressId", "value": "" },
+    { "key": "couponCode", "value": "WELCOME10" }
+  ],
+  "item": [
+    {
+      "name": "Auth - Customer Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"customer@apexcart.com\",\n  \"password\": \"Customer@123456\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+      }
+    },
+    {
+      "name": "Auth - Admin Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@apexcart.com\",\n  \"password\": \"Admin@123456\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+      }
+    },
+    {
+      "name": "Products - Catalog List",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/products?page=1&limit=12", "host": ["{{baseUrl}}"], "path": ["products"] }
+      }
+    },
+    {
+      "name": "Addresses - Get List",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{customerToken}}" }],
+        "url": { "raw": "{{baseUrl}}/addresses", "host": ["{{baseUrl}}"], "path": ["addresses"] }
+      }
+    },
+    {
+      "name": "Cart - Recalculate Cart",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{customerToken}}" }],
+        "url": { "raw": "{{baseUrl}}/cart", "host": ["{{baseUrl}}"], "path": ["cart"] }
+      }
+    },
+    {
+      "name": "Checkout - Verified Summary",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{customerToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"addressId\": \"{{addressId}}\",\n  \"couponCode\": \"{{couponCode}}\",\n  \"shippingMethod\": \"standard\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/checkout/summary", "host": ["{{baseUrl}}"], "path": ["checkout", "summary"] }
+      }
+    },
+    {
+      "name": "Payments - Create Razorpay Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{customerToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"addressId\": \"{{addressId}}\",\n  \"couponCode\": \"{{couponCode}}\",\n  \"shippingMethod\": \"standard\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/payments/create-order", "host": ["{{baseUrl}}"], "path": ["payments", "create-order"] }
+      }
+    },
+    {
+      "name": "Payments - Verify Signature",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{customerToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orderId\": \"{{orderId}}\",\n  \"razorpay_order_id\": \"order_test_123\",\n  \"razorpay_payment_id\": \"pay_test_123\",\n  \"razorpay_signature\": \"sig_test_123\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/payments/verify", "host": ["{{baseUrl}}"], "path": ["payments", "verify"] }
+      }
+    },
+    {
+      "name": "Admin - Control Dashboard",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": { "raw": "{{baseUrl}}/admin/dashboard", "host": ["{{baseUrl}}"], "path": ["admin", "dashboard"] }
+      }
+    },
+    {
+      "name": "Admin - Products (All Items)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": { "raw": "{{baseUrl}}/admin/products", "host": ["{{baseUrl}}"], "path": ["admin", "products"] }
+      }
+    },
+    {
+      "name": "Admin - Delivery Config",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": { "raw": "{{baseUrl}}/admin/delivery-config", "host": ["{{baseUrl}}"], "path": ["admin", "delivery-config"] }
+      }
+    },
+    {
+      "name": "Admin - Payments Audit Trail",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": { "raw": "{{baseUrl}}/admin/payments", "host": ["{{baseUrl}}"], "path": ["admin", "payments"] }
+      }
+    }
+  ]
+}
