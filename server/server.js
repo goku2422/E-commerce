@@ -41,8 +41,34 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
 
-// Ensure MongoDB connection is ready for incoming requests
+// 1. CORS Configuration (Registered FIRST so OPTIONS preflights respond immediately)
+const allowedOrigins = [
+  process.env.CLIENT_URL || 'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://localhost:3000',
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1 || (origin && origin.endsWith('.vercel.app'))) {
+        callback(null, true);
+      } else {
+        callback(null, true);
+      }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    optionsSuccessStatus: 200,
+  })
+);
+
+// 2. Ensure MongoDB connection is ready for incoming data requests
 app.use(async (req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
   try {
     await connectDB();
     next();
@@ -55,34 +81,13 @@ app.use(async (req, res, next) => {
   }
 });
 
-// Security Headers
+// 3. Security Headers
 app.use(helmet());
 
 // Logging in dev mode
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
 }
-
-// CORS Configuration (Requirement 9 & Test Case 14)
-const allowedOrigins = [
-  process.env.CLIENT_URL || 'http://localhost:5173',
-  'http://127.0.0.1:5173',
-  'http://localhost:3000',
-];
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1 || (origin && origin.endsWith('.vercel.app'))) {
-        callback(null, true);
-      } else {
-        callback(null, true);
-      }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  })
-);
 
 // Body Parser Middleware
 app.use(express.json({ limit: '10mb' }));
