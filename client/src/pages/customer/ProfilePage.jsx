@@ -122,7 +122,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 space-y-12">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12">
       <div className="border-b border-neutral-200 pb-6">
         <h1 className="text-4xl sm:text-5xl font-display font-light text-neutral-900 tracking-tight">
           Account Settings
@@ -134,7 +134,7 @@ export default function ProfilePage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Profile Info Form */}
-        <div className="bg-white rounded-3xl p-8 border border-neutral-200/80 shadow-sm space-y-6">
+        <div className="bg-white rounded-3xl p-5 sm:p-8 border border-neutral-200/80 shadow-sm space-y-6">
           <h3 className="text-sm font-semibold text-neutral-400 uppercase tracking-widest flex items-center border-b border-neutral-100 pb-4">
             <User className="w-4 h-4 mr-2 text-neutral-700" /> Personal Details
           </h3>

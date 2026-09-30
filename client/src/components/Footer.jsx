@@ -29,7 +29,7 @@ export default function Footer() {
               "Everything you need. Curated for the way you live."
             </p>
           </div>
-          <p className="text-xs text-neutral-400 font-light max-w-xs leading-relaxed border-l border-neutral-800 pl-4 md:pl-6">
+          <p className="text-xs text-neutral-400 font-light max-w-xs leading-relaxed border-t sm:border-t-0 sm:border-l border-neutral-800 pt-4 sm:pt-0 pl-0 sm:pl-6">
             Premium minimalist marketplace engineered for modern living. Verified stock & express dispatch.
           </p>
         </div>
@@ -148,7 +148,7 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email address"
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-500 font-light transition-colors"
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-4 pr-24 py-3 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-500 font-light transition-colors"
                 />
                 <button
                   type="submit"
