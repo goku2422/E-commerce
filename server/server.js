@@ -39,10 +39,21 @@ console.log('[ENV DIAGNOSTIC] Razorpay Config Check:', {
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
-// Connect to MongoDB Database
-connectDB();
-
 const app = express();
+
+// Ensure MongoDB connection is ready for incoming requests
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error('[ERROR] Serverless DB Connection Middleware Error:', err.message);
+    res.status(500).json({
+      success: false,
+      message: `Database Connection Error: ${err.message || 'Unable to connect to MongoDB Atlas Cloud.'}. Please ensure 0.0.0.0/0 is added to MongoDB Atlas Network Access IP Access List.`,
+    });
+  }
+});
 
 // Security Headers
 app.use(helmet());
