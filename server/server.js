@@ -44,9 +44,10 @@ const app = express();
 // 1. Production CORS & Preflight Middleware (Registered FIRST for instant OPTIONS responses)
 app.use((req, res, next) => {
   const origin = req.headers.origin;
+  const clientUrl = (process.env.CLIENT_URL || '').replace(/\/$/, '');
   const allowedOrigins = [
     'https://e-commerce-zeta-teal-xoft5l6up9.vercel.app',
-    process.env.CLIENT_URL,
+    clientUrl,
     'http://localhost:5173',
     'http://127.0.0.1:5173',
     'http://localhost:3000',
