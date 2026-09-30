@@ -87,6 +87,14 @@ const authLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+// Root API Welcome endpoint
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'ApexCart API is running',
+  });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({
