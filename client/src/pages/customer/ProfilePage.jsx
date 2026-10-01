@@ -292,7 +292,7 @@ export default function ProfilePage() {
       {/* Modal for adding address */}
       <Modal isOpen={showAddressModal} onClose={() => setShowAddressModal(false)} title="Add Delivery Address">
         <form onSubmit={handleCreateAddress} className="space-y-4 pt-2">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1">Full Name</label>
               <input
@@ -326,7 +326,7 @@ export default function ProfilePage() {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label className="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1">City</label>
               <input

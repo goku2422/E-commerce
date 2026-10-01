@@ -440,7 +440,7 @@ export default function CheckoutPage() {
       {/* Add Address Modal */}
       <Modal isOpen={showAddressModal} onClose={() => setShowAddressModal(false)} title="Add Delivery Address">
         <form onSubmit={handleCreateAddress} className="space-y-4 text-zinc-900">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Full Name</label>
               <input
@@ -477,7 +477,7 @@ export default function CheckoutPage() {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label className="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1">City</label>
               <input
