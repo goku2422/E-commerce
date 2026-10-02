@@ -71,13 +71,27 @@ export default function CheckoutPage() {
     fetchOrderSummary(selectedAddressId);
   }, [selectedAddressId, cartSummary.couponApplied]);
 
+  const [addressMobileTouched, setAddressMobileTouched] = useState(false);
+  const [addressMobileError, setAddressMobileError] = useState('');
+
+  const validatePhone = (phone) => {
+    return /^[6-9]\d{9}$/.test(phone || '');
+  };
+
   // Handle creating a new address
   const handleCreateAddress = async (e) => {
     e.preventDefault();
+    setAddressMobileTouched(true);
+    if (!validatePhone(newAddress.mobile)) {
+      setAddressMobileError('Enter a valid 10-digit mobile number.');
+      return;
+    }
+    setAddressMobileError('');
     try {
       const res = await API.post('/addresses', newAddress);
       toast.success('Address saved successfully!');
       setShowAddressModal(false);
+      setAddressMobileTouched(false);
       const createdAddr = res.data.data;
       setAddresses((prev) => [...prev, createdAddr]);
       setSelectedAddressId(createdAddr._id);
@@ -455,13 +469,30 @@ export default function CheckoutPage() {
             <div>
               <label className="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Mobile Number</label>
               <input
-                type="text"
+                type="tel"
+                inputMode="numeric"
+                maxLength={10}
                 required
                 value={newAddress.mobile}
-                onChange={(e) => setNewAddress({ ...newAddress, mobile: e.target.value })}
+                onChange={(e) => {
+                  const cleaned = e.target.value.replace(/\D/g, '').slice(0, 10);
+                  setNewAddress({ ...newAddress, mobile: cleaned });
+                  if (addressMobileTouched) {
+                    setAddressMobileError(validatePhone(cleaned) ? '' : 'Enter a valid 10-digit mobile number.');
+                  }
+                }}
+                onBlur={() => {
+                  setAddressMobileTouched(true);
+                  setAddressMobileError(validatePhone(newAddress.mobile) ? '' : 'Enter a valid 10-digit mobile number.');
+                }}
                 placeholder="9876543210"
-                className="w-full px-4 py-2.5 text-xs bg-zinc-50 border rounded-2xl"
+                className={`w-full px-4 py-2.5 text-xs bg-zinc-50 border rounded-2xl ${
+                  addressMobileTouched && addressMobileError ? 'border-red-500 focus:ring-red-500' : ''
+                }`}
               />
+              {addressMobileTouched && addressMobileError && (
+                <p className="mt-1 text-[11px] font-medium text-red-500">{addressMobileError}</p>
+              )}
             </div>
           </div>
 

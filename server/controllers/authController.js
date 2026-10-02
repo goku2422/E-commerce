@@ -9,6 +9,8 @@ const generateToken = (id) => {
   });
 };
 
+const phoneRegex = /^[6-9]\d{9}$/;
+
 // @desc    Register a new customer
 // @route   POST /api/auth/register
 // @access  Public
@@ -20,13 +22,18 @@ const registerUser = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Please provide all required fields' });
     }
 
+    const cleanMobile = typeof mobile === 'string' ? mobile.trim() : '';
+    if (!phoneRegex.test(cleanMobile)) {
+      return res.status(400).json({ success: false, message: 'Enter a valid 10-digit mobile number.' });
+    }
+
     // Check duplicate email or mobile (Requirement 1 & Test Case 14)
     const existingEmail = await User.findOne({ email: email.toLowerCase().trim() });
     if (existingEmail) {
       return res.status(400).json({ success: false, message: 'User with this email already exists' });
     }
 
-    const existingMobile = await User.findOne({ mobile: mobile.trim() });
+    const existingMobile = await User.findOne({ mobile: cleanMobile });
     if (existingMobile) {
       return res.status(400).json({ success: false, message: 'User with this mobile number already exists' });
     }
@@ -34,7 +41,7 @@ const registerUser = async (req, res, next) => {
     const user = await User.create({
       name,
       email,
-      mobile,
+      mobile: cleanMobile,
       password,
       role: 'customer',
     });
@@ -127,12 +134,18 @@ const updateProfile = async (req, res, next) => {
     const { name, mobile } = req.body;
     const user = await User.findById(req.user._id);
 
-    if (mobile && mobile !== user.mobile) {
-      const existingMobile = await User.findOne({ mobile });
-      if (existingMobile) {
-        return res.status(400).json({ success: false, message: 'Mobile number already in use by another account' });
+    if (mobile) {
+      const cleanMobile = typeof mobile === 'string' ? mobile.trim() : '';
+      if (!phoneRegex.test(cleanMobile)) {
+        return res.status(400).json({ success: false, message: 'Enter a valid 10-digit mobile number.' });
       }
-      user.mobile = mobile;
+      if (cleanMobile !== user.mobile) {
+        const existingMobile = await User.findOne({ mobile: cleanMobile });
+        if (existingMobile) {
+          return res.status(400).json({ success: false, message: 'Mobile number already in use by another account' });
+        }
+        user.mobile = cleanMobile;
+      }
     }
 
     if (name) user.name = name;

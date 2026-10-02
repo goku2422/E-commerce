@@ -15,6 +15,8 @@ const getAddresses = async (req, res, next) => {
   }
 };
 
+const phoneRegex = /^[6-9]\d{9}$/;
+
 // @desc    Add new address
 // @route   POST /api/addresses
 // @access  Private
@@ -22,6 +24,11 @@ const addAddress = async (req, res, next) => {
   try {
     const { fullName, mobile, addressLine1, addressLine2, city, state, postalCode, country, addressType, isDefault } =
       req.body;
+
+    const cleanMobile = typeof mobile === 'string' ? mobile.trim() : '';
+    if (!phoneRegex.test(cleanMobile)) {
+      return res.status(400).json({ success: false, message: 'Enter a valid 10-digit mobile number.' });
+    }
 
     // If first address or marked default, un-default others
     const count = await Address.countDocuments({ user: req.user._id });
@@ -34,7 +41,7 @@ const addAddress = async (req, res, next) => {
     const address = await Address.create({
       user: req.user._id,
       fullName,
-      mobile,
+      mobile: cleanMobile,
       addressLine1,
       addressLine2,
       city,
@@ -64,6 +71,14 @@ const updateAddress = async (req, res, next) => {
 
     if (!address) {
       return res.status(404).json({ success: false, message: 'Address not found' });
+    }
+
+    if (req.body.mobile !== undefined) {
+      const cleanMobile = typeof req.body.mobile === 'string' ? req.body.mobile.trim() : '';
+      if (!phoneRegex.test(cleanMobile)) {
+        return res.status(400).json({ success: false, message: 'Enter a valid 10-digit mobile number.' });
+      }
+      req.body.mobile = cleanMobile;
     }
 
     if (req.body.isDefault) {

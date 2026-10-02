@@ -7,16 +7,25 @@ export default function RegisterPage() {
   const { register, loading } = useAuth();
   const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    mobile: '',
-    password: '',
-  });
+  const [mobileTouched, setMobileTouched] = useState(false);
+  const [mobileError, setMobileError] = useState('');
+
+  const validateMobile = (val) => {
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!val || !phoneRegex.test(val)) {
+      setMobileError('Enter a valid 10-digit mobile number.');
+      return false;
+    }
+    setMobileError('');
+    return true;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMobileTouched(true);
+    if (!validateMobile(formData.mobile)) {
+      return;
+    }
     try {
       await register(formData);
       navigate('/');
@@ -90,15 +99,32 @@ export default function RegisterPage() {
               <label className="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1.5">Mobile Number</label>
               <div className="relative">
                 <input
-                  type="text"
+                  type="tel"
+                  inputMode="numeric"
+                  maxLength={10}
                   required
                   value={formData.mobile}
-                  onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+                  onChange={(e) => {
+                    const sanitized = e.target.value.replace(/\D/g, '').slice(0, 10);
+                    setFormData({ ...formData, mobile: sanitized });
+                    if (mobileTouched) validateMobile(sanitized);
+                  }}
+                  onBlur={() => {
+                    setMobileTouched(true);
+                    validateMobile(formData.mobile);
+                  }}
                   placeholder="9876543210"
-                  className="w-full pl-10 pr-4 py-3 text-sm border border-neutral-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-black font-mono font-light"
+                  className={`w-full pl-10 pr-4 py-3 text-sm border rounded-xl focus:outline-none font-mono font-light ${
+                    mobileTouched && mobileError
+                      ? 'border-red-500 focus:ring-1 focus:ring-red-500'
+                      : 'border-neutral-200 focus:ring-1 focus:ring-black'
+                  }`}
                 />
                 <Phone className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
               </div>
+              {mobileTouched && mobileError && (
+                <p className="text-xs text-red-500 font-semibold mt-1 animate-fade-in">{mobileError}</p>
+              )}
             </div>
 
             <div>

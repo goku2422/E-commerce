@@ -50,8 +50,23 @@ export default function ProfilePage() {
     loadAddresses();
   }, []);
 
+  const [profileMobileTouched, setProfileMobileTouched] = useState(false);
+  const [profileMobileError, setProfileMobileError] = useState('');
+  const [addressMobileTouched, setAddressMobileTouched] = useState(false);
+  const [addressMobileError, setAddressMobileError] = useState('');
+
+  const validatePhone = (phone) => {
+    return /^[6-9]\d{9}$/.test(phone || '');
+  };
+
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
+    setProfileMobileTouched(true);
+    if (!validatePhone(profileData.mobile)) {
+      setProfileMobileError('Enter a valid 10-digit mobile number.');
+      return;
+    }
+    setProfileMobileError('');
     setSavingProfile(true);
     try {
       const res = await API.put('/auth/profile', {
@@ -91,10 +106,17 @@ export default function ProfilePage() {
 
   const handleCreateAddress = async (e) => {
     e.preventDefault();
+    setAddressMobileTouched(true);
+    if (!validatePhone(newAddress.mobile)) {
+      setAddressMobileError('Enter a valid 10-digit mobile number.');
+      return;
+    }
+    setAddressMobileError('');
     try {
       await API.post('/addresses', newAddress);
       toast.success('Address added!');
       setShowAddressModal(false);
+      setAddressMobileTouched(false);
       loadAddresses();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to add address');
@@ -164,12 +186,33 @@ export default function ProfilePage() {
             <div>
               <label className="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1.5">Mobile Number</label>
               <input
-                type="text"
+                type="tel"
+                inputMode="numeric"
+                maxLength={10}
                 required
                 value={profileData.mobile}
-                onChange={(e) => setProfileData({ ...profileData, mobile: e.target.value })}
-                className="w-full px-4 py-3 text-sm border border-neutral-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-black font-mono"
+                onChange={(e) => {
+                  const sanitized = e.target.value.replace(/\D/g, '').slice(0, 10);
+                  setProfileData({ ...profileData, mobile: sanitized });
+                  if (profileMobileTouched) {
+                    if (validatePhone(sanitized)) setProfileMobileError('');
+                    else setProfileMobileError('Enter a valid 10-digit mobile number.');
+                  }
+                }}
+                onBlur={() => {
+                  setProfileMobileTouched(true);
+                  if (validatePhone(profileData.mobile)) setProfileMobileError('');
+                  else setProfileMobileError('Enter a valid 10-digit mobile number.');
+                }}
+                className={`w-full px-4 py-3 text-sm border rounded-xl focus:outline-none font-mono ${
+                  profileMobileTouched && profileMobileError
+                    ? 'border-red-500 focus:ring-1 focus:ring-red-500'
+                    : 'border-neutral-200 focus:ring-1 focus:ring-black'
+                }`}
               />
+              {profileMobileTouched && profileMobileError && (
+                <p className="text-xs text-red-500 font-semibold mt-1 animate-fade-in">{profileMobileError}</p>
+              )}
             </div>
 
             <button
@@ -306,12 +349,33 @@ export default function ProfilePage() {
             <div>
               <label className="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1">Mobile Number</label>
               <input
-                type="text"
+                type="tel"
+                inputMode="numeric"
+                maxLength={10}
                 required
                 value={newAddress.mobile}
-                onChange={(e) => setNewAddress({ ...newAddress, mobile: e.target.value })}
-                className="w-full px-3 py-2.5 text-sm border border-neutral-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-black font-mono"
+                onChange={(e) => {
+                  const sanitized = e.target.value.replace(/\D/g, '').slice(0, 10);
+                  setNewAddress({ ...newAddress, mobile: sanitized });
+                  if (addressMobileTouched) {
+                    if (validatePhone(sanitized)) setAddressMobileError('');
+                    else setAddressMobileError('Enter a valid 10-digit mobile number.');
+                  }
+                }}
+                onBlur={() => {
+                  setAddressMobileTouched(true);
+                  if (validatePhone(newAddress.mobile)) setAddressMobileError('');
+                  else setAddressMobileError('Enter a valid 10-digit mobile number.');
+                }}
+                className={`w-full px-3 py-2.5 text-sm border rounded-xl focus:outline-none font-mono ${
+                  addressMobileTouched && addressMobileError
+                    ? 'border-red-500 focus:ring-1 focus:ring-red-500'
+                    : 'border-neutral-200 focus:ring-1 focus:ring-black'
+                }`}
               />
+              {addressMobileTouched && addressMobileError && (
+                <p className="text-xs text-red-500 font-semibold mt-1 animate-fade-in">{addressMobileError}</p>
+              )}
             </div>
           </div>
 
