@@ -112,12 +112,6 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="p-3 bg-[#faf9f6] rounded-xl border border-neutral-200/60 text-[11px] text-neutral-500 font-mono space-y-1 break-words">
-            <p className="font-semibold text-neutral-800">Quick Credentials:</p>
-            <p className="break-all">Customer: customer@apexcart.com / Customer@123456</p>
-            <p className="break-all">Admin: admin@apexcart.com / Admin@123456</p>
-          </div>
-
           <p className="text-center text-xs text-neutral-500 font-light">
             Don't have an account?{' '}
             <Link to="/register" className="text-neutral-900 font-semibold uppercase tracking-wider underline ml-1">
