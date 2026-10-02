@@ -40,9 +40,9 @@ import { useLocation } from 'react-router-dom';
 function CustomerLayout() {
   const location = useLocation();
   return (
-    <div className="flex flex-col min-h-screen bg-[#faf9f6] text-neutral-900 selection:bg-neutral-900 selection:text-white">
+    <div className="flex flex-col min-h-screen bg-[#faf9f6] text-neutral-900 selection:bg-neutral-900 selection:text-white w-full max-w-full min-w-0 overflow-x-hidden">
       <Navbar />
-      <main key={location.pathname} className="flex-1 animate-page-enter">
+      <main key={location.pathname} className="flex-1 animate-page-enter w-full max-w-full min-w-0">
         <Outlet />
       </main>
       <Footer />

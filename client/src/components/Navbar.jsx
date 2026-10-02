@@ -55,13 +55,13 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-[#faf9f6]/90 backdrop-blur-md border-b border-zinc-200/60 transition-all duration-300 animate-fade-down">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+      <header className="sticky top-0 z-40 bg-[#faf9f6]/90 backdrop-blur-md border-b border-zinc-200/60 transition-all duration-300 animate-fade-down w-full max-w-full min-w-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full min-w-0">
+          <div className="flex items-center justify-between h-20 min-w-0">
             {/* LEFT: Brand Wordmark */}
-            <div className="flex items-center">
+            <div className="flex items-center shrink-0">
               <Link to="/" className="group flex items-center space-x-2">
-                <span className="font-display text-2xl font-extrabold tracking-tight text-zinc-900 group-hover:opacity-80 transition-opacity">
+                <span className="font-display text-2xl font-extrabold tracking-tight text-zinc-900 group-hover:opacity-80 transition-opacity whitespace-nowrap">
                   APEX<span className="font-light tracking-widest text-zinc-400">CART</span>
                 </span>
               </Link>
