@@ -7,6 +7,13 @@ export default function RegisterPage() {
   const { register, loading } = useAuth();
   const navigate = useNavigate();
 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    mobile: '',
+    password: '',
+  });
+  const [showPassword, setShowPassword] = useState(false);
   const [mobileTouched, setMobileTouched] = useState(false);
   const [mobileError, setMobileError] = useState('');
 
